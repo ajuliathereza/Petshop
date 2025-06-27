@@ -1,29 +1,58 @@
-// Menu Mobile
+// Menu Mobile Elegante
 document.addEventListener('DOMContentLoaded', function() {
-    // Menu Mobile
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
-
-    menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-        menuToggle.setAttribute('aria-expanded', !isExpanded);
+    const menuOverlay = document.querySelector('.nav-menu-overlay');
+    const body = document.body;
+    
+    // Função para fechar o menu
+    function closeMenu() {
+        navMenu.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        body.style.overflow = 'auto';
+    }
+    
+    // Função para abrir o menu
+    function openMenu() {
+        navMenu.classList.add('active');
+        menuOverlay.classList.add('active');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        body.style.overflow = 'hidden';
+    }
+    
+    // Abrir/fechar menu ao clicar no botão
+    menuToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        
+        if (isExpanded) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
     });
-
+    
+    // Fechar menu ao clicar no overlay
+    menuOverlay.addEventListener('click', closeMenu);
+    
     // Fechar menu ao clicar em um link
     const navLinks = document.querySelectorAll('.nav-menu a');
     navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            menuToggle.setAttribute('aria-expanded', 'false');
-        });
+        link.addEventListener('click', closeMenu);
     });
-
-    // Fechar menu ao redimensionar a tela para desktop
-    window.addEventListener('resize', () => {
+    
+    // Fechar menu ao pressionar ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+    
+    // Fechar menu ao redimensionar para desktop
+    window.addEventListener('resize', function() {
         if (window.innerWidth > 992) {
-            navMenu.classList.remove('active');
-            menuToggle.setAttribute('aria-expanded', 'false');
+            closeMenu();
         }
     });
 
