@@ -36,10 +36,5 @@ O layout foi desenvolvido para funcionar perfeitamente em:
 - Tablets
 - Smartphones
 
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Sinta-se à vontade para usá-lo como base para o site do seu negócio.
-
----
 
 Desenvolvido com ❤️ para donos de petshop que amam seus clientes de quatro patas!
